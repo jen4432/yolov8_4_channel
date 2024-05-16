@@ -1,16 +1,20 @@
-# This is a sample Python script.
+from ultralytics.models.yolo.model import YOLO
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# model = YOLO('yolov8n.pt')
 
+model = YOLO('runs/detect/train3/weights/best.pt')
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# results = model.predict('dataset/images/train/train_1/four_channel_image546.png')
 
+# for result in results:
+#     boxes = result.boxes
+#     print(boxes)# Boxes object for bounding box outputs
+#     masks = result.masks  # Masks object for segmentation masks outputs
+#     keypoints = result.keypoints  # Keypoints object for pose outputs
+#     probs = result.probs  # Probs object for classification outputs
+#     obb = result.obb  # Oriented boxes object for OBB outputs
+#     result.show()  # display to screen
+#     result.save(filename='result.png')
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+results = model.train(data="dataset/data.yaml", epochs=10)
+model.val()
